@@ -14,6 +14,10 @@ use App\Http\Controllers\TaskController;
 |
 */
 
-Route::resource('/', TaskController::class)->except([
+Route::get('/', function () {
+    return view('home');
+});
+
+Route::resource('/tasks', TaskController::class)->except([
     'show'
 ]);

@@ -14,7 +14,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::orderBy('created_at')->get();
+        $tasks = Task::orderBy('created_at', 'DESC')->get();
         return view('home', ['tasks' => $tasks]);
     }
 
@@ -25,7 +25,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        return view('add-task');
     }
 
     /**
@@ -36,7 +36,12 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $task = new Task();
+        $task->title = $request['task-title'];
+        $task->description = $request['task-description'];
+        $task->status_id = isset($request['task-status']) ? $request['task-status'] : '1';
+        $task->save();
+        return back()->with('status', 'Tarea agregada correctamente.');
     }
 
     /**
@@ -47,7 +52,7 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        // Does not apply (nth)
+        // Does not apply (NTH)
     }
 
     /**

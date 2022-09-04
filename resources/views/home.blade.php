@@ -16,15 +16,15 @@
     </h1>
     <div class="mx-5">
         <div class=" mb-4 d-flex justify-content-end">
-            <button class="btn btn-success d-flex align-items-center justify-content-between">
-                <span class="pe-2">Agregar tarea</span>
+            <a href="/create" class="btn btn-success d-flex align-items-center justify-content-between">
+                <span class="pe-2 text-uppercase">Agregar tarea</span>
                 <ion-icon name="add-circle-outline" size="large"></ion-icon>
-            </button>
+            </a>
         </div>
         <div>
             <table class="table table-bordered">
                 <thead>
-                    <tr>
+                    <tr class="text-uppercase">
                         <th>Título</th>
                         <th>Descripción</th>
                         <th>Fecha de creación</th>

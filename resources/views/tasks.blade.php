@@ -40,7 +40,7 @@
                                         <ion-icon name="create-outline"></ion-icon>
                                     </a>
 
-                                    <button data-task-id='{{ $task->id }}' data-task-title='{{ $task->title }}'
+                                    <button data-task-id='{{ $task->id }}' data-task-title='{{ $task->title }}' data-csrf='{{ csrf_token() }}'
                                         class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteTaskModal">
                                         <ion-icon name="trash-outline"></ion-icon>
                                     </button>
@@ -81,39 +81,5 @@
 @endsection
 
 @section('scripts')
-    <script>
-        /*
-         * Fetch delete method and hide task item.
-         */
-        const deleteTask = (id) => {
-            fetch(`/tasks/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                }
-            }).then(res => {
-                console.log(res);
-            });
-            document.getElementById(`task-${id}`).style.display = 'none';
-        }
-
-        /*
-         * Add event listener for deleteModal, 
-         * then extract taskTitle and taskId from datasets.
-         * Finally add behavior 'deleteTask()' to modalButtonConfirm
-         */
-        const deleteModal = document.getElementById('deleteTaskModal');
-        deleteModal.addEventListener('show.bs.modal', event => {
-            const {
-                dataset: {
-                    taskTitle,
-                    taskId
-                }
-            } = event.relatedTarget;
-            const modalTaskTitle = document.getElementById('modal-task-title');
-            modalTaskTitle.innerHTML = taskTitle;
-            const modalButtonConfirm = document.getElementById('modal-button-confirm');
-            modalButtonConfirm.onclick = () => deleteTask(taskId);
-        })
-    </script>
+<script src="js/tasks-script.js"></script>
 @endsection

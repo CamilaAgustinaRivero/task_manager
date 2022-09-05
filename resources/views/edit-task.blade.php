@@ -27,7 +27,8 @@
                             <option disabled>Estado de la tarea</option>
                             @foreach ($statusList as $status)
                                 <option value="{{ $status->id }}" @if ($status == $task->getStatus) selected @endif>
-                                    {{ $status->name }}</option>
+                                    {{ $status->name }}
+                                </option>
                             @endforeach
                         </select>
                     </div>

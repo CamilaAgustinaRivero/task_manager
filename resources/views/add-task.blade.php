@@ -24,7 +24,7 @@
                         <select name="task-status" class="form-select">
                             <option disabled selected>Estado de la tarea</option>
                             @foreach ($statusList as $status)
-                                <option value="{{ $status->id }}">{{ $status->name }}</option>
+                                <option value="{{ $status->id }}" {{ old('task-status') == $status->id ? 'selected' : '' }}>{{ $status->name }}</option>
                             @endforeach
                         </select>
                     </div>

@@ -38,6 +38,24 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
+        $rules = [
+            'task-title' => 'required|string|min:3|max:255',
+            'task-description' => 'required|string|min:3|max:255',
+        ];
+
+        $messages = [
+            // Title
+            'task-title.required' => 'El título es requerido.',
+            'task-title.min' => 'El título debe contener como mínimo :min caracteres.',
+            'task-title.max' => 'El título debe contener como máximo :max caracteres.',
+            // Description
+            'task-description.required' => 'La descripción es requerida.',
+            'task-description.min' => 'La descripción debe contener como mínimo :min caracteres.',
+            'task-title.max' => 'La descripción debe contener como máximo :max caracteres.',
+        ];
+
+        $validatedData = $request->validate($rules, $messages);
+
         $task = new Task();
         $task->title = $request['task-title'];
         $task->description = $request['task-description'];
@@ -79,6 +97,24 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $rules = [
+            'task-title' => 'required|string|min:3|max:255',
+            'task-description' => 'required|string|min:3|max:255',
+        ];
+
+        $messages = [
+            // Title
+            'task-title.required' => 'El título es requerido.',
+            'task-title.min' => 'El título debe contener como mínimo :min caracteres.',
+            'task-title.max' => 'El título debe contener como máximo :max caracteres.',
+            // Description
+            'task-description.required' => 'La descripción es requerida.',
+            'task-description.min' => 'La descripción debe contener como mínimo :min caracteres.',
+            'task-title.max' => 'La descripción debe contener como máximo :max caracteres.',
+        ];
+
+        $validatedData = $request->validate($rules, $messages);
+
         $task = Task::find($id);
         $task->title = $request['task-title'];
         $task->description = $request['task-description'];
@@ -96,6 +132,6 @@ class TaskController extends Controller
     public function destroy($id)
     {
         $task = Task::find($id);
-        $task->delete();    
+        $task->delete();
     }
 }

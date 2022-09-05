@@ -1,21 +1,9 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
+@extends('layouts/layout')
+@section('title')
     <title>Listado de tareas</title>
-    <!-- Styles -->
-    <link rel="stylesheet" type="text/css" href="/css/app.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous">
-    </script>
+@endsection
 
-
-</head>
-
-<body>
+@section('body')
     <h1 class="text-center text-uppercase p-4">
         Listado de tareas
     </h1>
@@ -48,7 +36,7 @@
                             <td>{{ $task->getStatus->name }}</td>
                             <td>
                                 <div class="btn-group d-flex justify-content-center align-items-center">
-                                    <a href="/tasks/{{$task->id}}/edit" class="btn btn-warning">
+                                    <a href="/tasks/{{ $task->id }}/edit" class="btn btn-warning">
                                         <ion-icon name="create-outline"></ion-icon>
                                     </a>
 
@@ -65,8 +53,8 @@
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="deleteTaskModal" tabindex="-1" role="dialog"
-            aria-labelledby="deleteTaskModalLabel" aria-hidden="true">
+        <div class="modal fade" id="deleteTaskModal" tabindex="-1" role="dialog" aria-labelledby="deleteTaskModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -82,54 +70,50 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-danger" id="modal-button-confirm" data-bs-dismiss="modal">Eliminar</button>
+                        <button type="button" class="btn btn-danger" id="modal-button-confirm"
+                            data-bs-dismiss="modal">Eliminar</button>
                     </div>
                 </div>
             </div>
         </div>
         <!-- ***** -->
     </div>
+@endsection
 
-</body>
+@section('scripts')
+    <script>
+        /*
+         * Fetch delete method and hide task item.
+         */
+        const deleteTask = (id) => {
+            fetch(`/tasks/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                }
+            }).then(res => {
+                console.log(res);
+            });
+            document.getElementById(`task-${id}`).style.display = 'none';
+        }
 
-</html>
-
-<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-
-<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
-<script>
-    /*
-     * Fetch delete method and hide task item.
-     */
-    const deleteTask = (id) => {
-        fetch(`${id}`, {
-            method: 'DELETE',
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-            }
-        }).then(res => {
-            console.log(res);
-        });
-        document.getElementById(`task-${id}`).style.display = 'none';
-    }
-
-    /*
-     * Add event listener for deleteModal, 
-     * then extract taskTitle and taskId from datasets.
-     * Finally add behavior 'deleteTask()' to modalButtonConfirm
-     */
-    const deleteModal = document.getElementById('deleteTaskModal');
-    deleteModal.addEventListener('show.bs.modal', event => {
-        const {
-            dataset: {
-                taskTitle,
-                taskId
-            }
-        } = event.relatedTarget;
-        const modalTaskTitle = document.getElementById('modal-task-title');
-        modalTaskTitle.innerHTML = taskTitle;
-        const modalButtonConfirm = document.getElementById('modal-button-confirm');
-        modalButtonConfirm.onclick = () => deleteTask(taskId);
-    })
-</script>
+        /*
+         * Add event listener for deleteModal, 
+         * then extract taskTitle and taskId from datasets.
+         * Finally add behavior 'deleteTask()' to modalButtonConfirm
+         */
+        const deleteModal = document.getElementById('deleteTaskModal');
+        deleteModal.addEventListener('show.bs.modal', event => {
+            const {
+                dataset: {
+                    taskTitle,
+                    taskId
+                }
+            } = event.relatedTarget;
+            const modalTaskTitle = document.getElementById('modal-task-title');
+            modalTaskTitle.innerHTML = taskTitle;
+            const modalButtonConfirm = document.getElementById('modal-button-confirm');
+            modalButtonConfirm.onclick = () => deleteTask(taskId);
+        })
+    </script>
+@endsection

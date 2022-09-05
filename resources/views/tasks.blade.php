@@ -48,9 +48,9 @@
                             <td>{{ $task->getStatus->name }}</td>
                             <td>
                                 <div class="btn-group d-flex justify-content-center align-items-center">
-                                    <button class="btn btn-warning">
+                                    <a href="/tasks/{{$task->id}}/edit" class="btn btn-warning">
                                         <ion-icon name="create-outline"></ion-icon>
-                                    </button>
+                                    </a>
                                     <button data-task-id='{{ $task->id }}' data-task-title='{{ $task->title }}'
                                         class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteTaskModal">
                                         <ion-icon name="trash-outline"></ion-icon>

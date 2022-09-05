@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Status;
 use App\Models\Task;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,8 @@ class TaskController extends Controller
      */
     public function create()
     {
-        return view('add-task');
+        $statusList = Status::all();
+        return view('add-task', ['statusList' => $statusList]);
     }
 
     /**
@@ -63,7 +65,9 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-        //
+        $task = Task::find($id);
+        $statusList = Status::all();
+        return view('edit-task', ['task' => $task, 'statusList' => $statusList]);
     }
 
     /**
@@ -75,7 +79,12 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $task = Task::find($id);
+        $task->title = $request['task-title'];
+        $task->description = $request['task-description'];
+        $task->status_id = $request['task-status'] ? $request['task-status'] : '1';
+        $task->save();
+        return back()->with('status', 'Tarea actualizada correctamente.');
     }
 
     /**

@@ -1,0 +1,28 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+
+[Unreleased]
+
+Nice to have
+
+- Task list paginator
+- Task single view
+- Status CRUD
+
+## [ 1.0.0 ] 2022-09-05
+
+### Added
+
+- Task views: List / Create / Edit
+- Task controller and route resource
+- Task model 
+- Status model
+- Task table migrations with soft delete column
+- Status table migrations
+- Task seeder with fake fields
+- Status default entities migration
+- View layouts
+- Delete task script

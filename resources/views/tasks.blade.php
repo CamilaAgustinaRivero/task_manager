@@ -51,6 +51,7 @@
                                     <a href="/tasks/{{$task->id}}/edit" class="btn btn-warning">
                                         <ion-icon name="create-outline"></ion-icon>
                                     </a>
+
                                     <button data-task-id='{{ $task->id }}' data-task-title='{{ $task->title }}'
                                         class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteTaskModal">
                                         <ion-icon name="trash-outline"></ion-icon>
@@ -86,7 +87,7 @@
                 </div>
             </div>
         </div>
-        <!-- Fin del modal -->
+        <!-- ***** -->
     </div>
 
 </body>
@@ -102,11 +103,13 @@
      * Fetch delete method and hide task item.
      */
     const deleteTask = (id) => {
-        fetch(`tasks/${id}`, {
+        fetch(`${id}`, {
             method: 'DELETE',
             headers: {
                 'X-CSRF-TOKEN': '{{ csrf_token() }}',
             }
+        }).then(res => {
+            console.log(res);
         });
         document.getElementById(`task-${id}`).style.display = 'none';
     }

@@ -20,7 +20,7 @@
 </ul>
 
 <br>
-<h4>INICIAR EL PROYECYO</h4>
+<h4>INICIAR EL PROYECTO</h4>
 <hr>
 <ol>
     <li>Crear un archivo .env con la conexión a la base de datos MySQL (tomar de referencia .env.example).</li>
